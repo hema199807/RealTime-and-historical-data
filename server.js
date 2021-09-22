@@ -46,7 +46,7 @@ io.on('connection',function(socket){
                 TimeStamp:`${addDate}---${currentTime}`}).save();
                 
             var getData=await IOTASS.find().limit(20).sort({TimeStamp:-1});
-            io.emit("realtime-data",getData);
+            socket.emit("realtime-data",getData);
         },2000)
     })
     socket.on('disconnect',()=>{
