@@ -44,7 +44,7 @@ io.on('connection',function(socket){
             var storedData= await new IOTASS({Temperature:++temp,
                 BatteryLevel:++level,
                 TimeStamp:`${addDate}---${currentTime}`}).save();
-                console.log(storedData);
+                
             var getData=await IOTASS.find().limit(20).sort({TimeStamp:-1});
             io.emit("realtime-data",getData);
         },2000)
