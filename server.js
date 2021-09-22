@@ -22,7 +22,7 @@ var options={
 }
 var temp=14;
 var level=50;
-var getData;
+var getDataIntervel;
 mongoose.connect(dbUri,options).then(()=>{
     console.log("Database connected");
     setInterval(async function(){
@@ -46,13 +46,13 @@ mongoose.connect(dbUri,options).then(()=>{
 })
 io.on('connection',function(socket){
     socket.on("add-data",function(){
-       getData=setInterval(() => {
+        getDataIntervel=setInterval(() => {
         var getData=await Data.find().limit(20).sort({TimeStamp:-1});
         io.emit("realtime-data",getData);
        },2000);
     })
     socket.on('disconnect',()=>{
-        clearInterval(addData);
+        clearInterval(getDataIntervel);
     })
    
 })
