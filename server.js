@@ -28,7 +28,7 @@ mongoose.connect(dbUri,options).then(()=>{
 })
 io.on('connection',function(socket){
     socket.on("add-data",function(){
-        getDataIntervel=setInterval(async function(){
+        getDataIntervel=setInterval(async ()=>{
             let currentDate=await new Date();
             let month=currentDate.getMonth() + 1;
             month=month < 10 ? "0"+month :month;
@@ -50,6 +50,7 @@ io.on('connection',function(socket){
         },2000)
     })
     socket.on('disconnect',()=>{
+        console.log("disconnected");
         clearInterval(getDataIntervel);
     })
    
