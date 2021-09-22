@@ -5,7 +5,7 @@ $(document).ready(function(){
         "timeout":10000,
         "transports":["websocket"]
     }
-    var socket=io.connect("https://realtimrandhistoricaldata.herokuapp.com",connectionOptions);
+    var socket=io.connect("http://localhost:3000",connectionOptions);
     $('#add-data').click(function(){
         socket.emit("add-data");
         $('#add-data').css("display","none");
@@ -18,12 +18,12 @@ $(document).ready(function(){
         var col1=document.getElementsByClassName("column1");
         var col2=document.getElementsByClassName("column2");
         var col3=document.getElementsByClassName("column3");
-        
+     
         if(getRowslist.length === 20){
-            
+       
             for(var i=0;i<realTimeData.length;i++){
                 col1[i].innerText=realTimeData[i].Temperature;
-              
+               
                 col2[i].innerText=realTimeData[i]. BatteryLevel;
                 col3[i].innerText=realTimeData[i].TimeStamp;
             }
@@ -41,6 +41,5 @@ $(document).ready(function(){
     }
     socket.on('realtime-data' ,function(dataArray){
          createRows(dataArray)
-         console.log(dataArray);
     })
 })

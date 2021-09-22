@@ -6,8 +6,7 @@ var app=express();
 var server=require('http').createServer(app);
 var io=require('socket.io')(server);
 var port=process.env.PORT || 3000;
-require('dotenv').config();
-var password=process.env.Atlas_Password;
+
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
@@ -46,7 +45,7 @@ io.on('connection',function(socket){
                 TimeStamp:`${addDate}---${currentTime}`}).save();
                 
             var getData=await IOTASS.find().limit(20).sort({TimeStamp:-1});
-            socket.emit("realtime-data",getData);
+            io.emit("realtime-data",getData);
         },2000)
     })
     socket.on('disconnect',()=>{
@@ -62,7 +61,7 @@ app.get("/selectDateTime",(req,res)=>{
 })
 
 app.post("/historicalData",async (req,res)=>{
-    var getHistoricalData=await Data.find({TimeStamp : {$lt :req.body.end, $gt :req.body.start}})
+    var getHistoricalData=await IOTASS.find({TimeStamp : {$lt :req.body.end, $gt :req.body.start}})
     if(getHistoricalData.length!=0){
         res.send({status:200,result:getHistoricalData});
     }else{
