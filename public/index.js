@@ -10,7 +10,6 @@ $(document).ready(function(){
         socket.emit("add-data");
         $('#add-data').css("display","none");
         $("#data-table-div").css("display","block");
-        alert("wait some time to see data");
     })
     function createRows(realTimeData){
         var count=0;
@@ -40,6 +39,8 @@ $(document).ready(function(){
         }
     }
     socket.on('realtime-data' ,function(dataArray){
-         createRows(dataArray)
+        createRows(dataArray)
+        $('#notification').css("display","none");
+        
     })
 })
