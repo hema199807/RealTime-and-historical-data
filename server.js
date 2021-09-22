@@ -46,7 +46,7 @@ mongoose.connect(dbUri,options).then(()=>{
 })
 io.on('connection',function(socket){
     socket.on("add-data",function(){
-        getDataIntervel=setInterval(() => {
+        getDataIntervel=setInterval(async function() {
         var getData=await Data.find().limit(20).sort({TimeStamp:-1});
         io.emit("realtime-data",getData);
        },2000);
