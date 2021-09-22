@@ -45,6 +45,7 @@ io.on('connection',function(socket){
                     var storedData= await new Data({Temperature:++temp,
                         BatteryLevel:++level,
                         TimeStamp:`${addDate}---${currentTime}`}).save();
+                        console.log(storedData);
                         var getData=await Data.find().limit(20).sort({TimeStamp:-1});
                         io.emit("realtime-data",getData);
                         //socket.broadcast.emit("realtime-data",getData);
