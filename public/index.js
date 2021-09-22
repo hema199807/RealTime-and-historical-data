@@ -5,7 +5,7 @@ $(document).ready(function(){
         "timeout":10000,
         "transports":["websocket"]
     }
-    var socket=io.connect("https://realtimrandhistoricaldata.herokuapp.com",connectionOptions);
+    var socket=io.connect("http://localhost:3000",connectionOptions);
     $('#add-data').click(function(){
         socket.emit("add-data");
         $('#add-data').css("display","none");
