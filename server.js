@@ -22,35 +22,34 @@ var options={
 }
 var temp=14;
 var level=50;
-var addData;
+var getData;
 mongoose.connect(dbUri,options).then(()=>{
     console.log("Database connected");
+    setInterval(async function(){
+        let currentDate=await new Date();
+        let month=currentDate.getMonth() + 1;
+        month=month < 10 ? "0"+month :month;
+        let year=currentDate.getFullYear();
+        let getDate=currentDate.getDate();
+        getDate=getDate < 10 ? "0"+getDate :getDate;
+        let addDate= year+"-"+month+"-"+getDate;
+        var hours = currentDate.getHours();
+        hours = hours < 10 ? "0" + hours : hours;
+        var minutes = currentDate.getMinutes() < 10 ? "0" +currentDate.getMinutes() : currentDate.getMinutes();
+        var seconds = currentDate.getSeconds() < 10 ? "0" + currentDate.getSeconds() : currentDate.getSeconds();
+        let currentTime=hours+":"+minutes+":"+seconds;
+        var storedData= await new Data({Temperature:++temp,
+            BatteryLevel:++level,
+            TimeStamp:`${addDate}---${currentTime}`}).save();
+            console.log(storedData);
+    },2000)
 })
 io.on('connection',function(socket){
     socket.on("add-data",function(){
-       
-               addData= setInterval(async function(){
-                    let currentDate=await new Date();
-                    let month=currentDate.getMonth() + 1;
-                    month=month < 10 ? "0"+month :month;
-                    let year=currentDate.getFullYear();
-                    let getDate=currentDate.getDate();
-                    getDate=getDate < 10 ? "0"+getDate :getDate;
-                    let addDate= year+"-"+month+"-"+getDate;
-                    var hours = currentDate.getHours();
-                    hours = hours < 10 ? "0" + hours : hours;
-                    var minutes = currentDate.getMinutes() < 10 ? "0" +currentDate.getMinutes() : currentDate.getMinutes();
-                    var seconds = currentDate.getSeconds() < 10 ? "0" + currentDate.getSeconds() : currentDate.getSeconds();
-                    let currentTime=hours+":"+minutes+":"+seconds;
-                    var storedData= await new Data({Temperature:++temp,
-                        BatteryLevel:++level,
-                        TimeStamp:`${addDate}---${currentTime}`}).save();
-                        console.log(storedData);
-                        var getData=await Data.find().limit(20).sort({TimeStamp:-1});
-                        io.emit("realtime-data",getData);
-                        //socket.broadcast.emit("realtime-data",getData);
-                },2000)
-       
+       getData=setInterval(() => {
+        var getData=await Data.find().limit(20).sort({TimeStamp:-1});
+        io.emit("realtime-data",getData);
+       },2000);
     })
     socket.on('disconnect',()=>{
         clearInterval(addData);
