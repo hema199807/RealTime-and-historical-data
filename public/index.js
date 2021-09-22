@@ -20,10 +20,10 @@ $(document).ready(function(){
         var col3=document.getElementsByClassName("column3");
         //console.log(disUser);
         if(getRowslist.length === 20){
-            console.log("inside");
+            //console.log("inside");
             for(var i=0;i<realTimeData.length;i++){
                 col1[i].innerText=realTimeData[i].Temperature;
-                console.log(col1[i],realTimeData[i].Temperature);
+               // console.log(col1[i],realTimeData[i].Temperature);
                 col2[i].innerText=realTimeData[i]. BatteryLevel;
                 col3[i].innerText=realTimeData[i].TimeStamp;
             }
@@ -41,5 +41,6 @@ $(document).ready(function(){
     }
     socket.on('realtime-data' ,function(dataArray){
          createRows(dataArray)
+         console.log(dataArray);
     })
 })
