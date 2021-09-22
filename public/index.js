@@ -41,5 +41,6 @@ $(document).ready(function(){
     }
     socket.on('realtime-data' ,function(dataArray){
          createRows(dataArray)
+         console.log(dataArray);
     })
 })
