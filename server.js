@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use(express.static("public"));
 
 
-var dbUri=`mongodb+srv://root:${password}@cluster0.29oaz.mongodb.net/UserDb?retryWrites=true&w=majority`
+var dbUri=`mongodb+srv://root:38CWz9iKbRCEF8ya@cluster0.29oaz.mongodb.net/UserDb?retryWrites=true&w=majority`
 var options={
     useUnifiedTopology:true,
     useNewUrlParser:true
