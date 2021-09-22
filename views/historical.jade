@@ -1,0 +1,48 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        style(type="text/css")
+           include historical.css
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;600&display=swap" rel="stylesheet")
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous")
+        script
+            include historical.js
+    body 
+        h1(id="headding")  
+            | Select Start and End Date Time then click ok to see historical data
+            p(id="input-div")
+                |  Start Time: 
+                input(id="start" type="time" name="appt-time" step="2")
+                |   Start Date: 
+                input(type="date",id="start-date", name="start-date", value="")
+                |   End Time: 
+                input(id="end" type="time" name="appt-time" step="2")
+                |   End Date: 
+                input(type="date",id="end-date", name="end-date", value="")
+                button(id="btn-ok") Ok
+        
+        div(id="data-table-div")
+
+            div(id="table-wrapper")
+
+                div(id="table-headers")
+                    table
+                        thead
+                            tr
+                                th(id="headcolumn1")
+                                    |   Temperature
+                                th(id="headcolumn2")
+                                    |   BatteryLevel
+                                th(id="headcolumn3")
+                                    |   TimeStamp
+                div(id="table-data")
+                    table
+                        tbody(id="table-content")
+        div(id="error-message-div")
+            h2(id="display-status")
+            p(id="error-msg")
