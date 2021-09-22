@@ -5,6 +5,6 @@ var dataSchema=new mongoose.Schema({
     TimeStamp:String},
     {strict:false});
 
-var Data=mongoose.model("data",dataSchema);
+var Data=mongoose.model("IOTASS",dataSchema);
 
 module.exports=Data;

@@ -1,6 +1,6 @@
 var express=require('express');
 var mongoose=require('mongoose');
-var Data=require('./model');
+var IOTASS=require('./model');
 var bodyParser=require("body-parser");
 var app=express();
 var server=require('http').createServer(app);
@@ -41,11 +41,11 @@ io.on('connection',function(socket){
             var minutes = currentDate.getMinutes() < 10 ? "0" +currentDate.getMinutes() : currentDate.getMinutes();
             var seconds = currentDate.getSeconds() < 10 ? "0" + currentDate.getSeconds() : currentDate.getSeconds();
             let currentTime=hours+":"+minutes+":"+seconds;
-            var storedData= await new Data({Temperature:++temp,
+            var storedData= await new IOTASS({Temperature:++temp,
                 BatteryLevel:++level,
                 TimeStamp:`${addDate}---${currentTime}`}).save();
                 console.log(storedData);
-            var getData=await Data.find().limit(20).sort({TimeStamp:-1});
+            var getData=await IOTASS.find().limit(20).sort({TimeStamp:-1});
             io.emit("realtime-data",getData);
         },2000)
     })
